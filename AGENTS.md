@@ -69,7 +69,10 @@ npm test           # all tests (Vitest)
 npm run typecheck  # TypeScript
 npm run fake-local -- --flavor ollama --port 11434   # a fake Ollama for trying the UI without one
 npm run fake-search                                  # a fake search server
+npm run screenshots  # retake docs/screenshots/chat.png and compare.png (needs Chrome or Edge, and Ollama stopped)
 ```
+
+`npm run screenshots` runs OpenChat on a throwaway database with a fake Ollama on port 11434, sets up both chats through the API, and captures them in dark mode with headless Chrome. The scenes and replies are in `scripts/readme-screenshots.ts`. The Discussion GIF (`docs/screenshots/discussion.gif`) is a screen recording and isn't made by this script.
 
 `npm start` builds the web app only when it is stale (`scripts/build-if-stale.mjs`), then serves it from the Hono server on port 3000.
 
