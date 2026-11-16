@@ -132,7 +132,7 @@ async function main() {
   try {
     spawnSync(process.execPath, ['scripts/build-if-stale.mjs'], { stdio: 'inherit' });
     server = spawn(process.execPath, ['--import', 'tsx', 'server/src/index.ts'], {
-      env: { ...process.env, OPENCHAT_PORT: String(PORT), OPENCHAT_HOST: '127.0.0.1', OPENCHAT_DB: join(tmp, 'openchat.db'), OPENROUTER_API_KEY: '' },
+      env: { ...process.env, PINION_PORT: String(PORT), PINION_HOST: '127.0.0.1', PINION_DB: join(tmp, 'openchat.db'), OPENROUTER_API_KEY: '' },
       stdio: ['ignore', 'inherit', 'inherit'],
     });
     await waitFor('the OpenChat server', () => api('GET', '/settings'));

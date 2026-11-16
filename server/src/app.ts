@@ -23,6 +23,7 @@ import { contextRoutes } from './routes/context';
 import { dataRoutes } from './routes/data';
 import { discussionRoutes } from './routes/discussions';
 import { localServerRoutes } from './routes/localServers';
+import { envVar } from './env';
 
 export interface Deps {
   db: DB;
@@ -41,10 +42,10 @@ export const isLocalHost = (hostname: string): boolean =>
 /** An address typed as numbers, like 192.168.1.5 or [fe80::1]. DNS rebinding needs a domain name, so these are safe. */
 export const isIpLiteral = (hostname: string): boolean => isIP(hostname.replace(/^\[(.*)\]$/, '$1')) !== 0;
 
-/** Names the API answers on: local names, IP addresses, and any listed in OPENCHAT_ALLOWED_HOSTS (comma-separated). */
+/** Names the API answers on: local names, IP addresses, and any listed in PINION_ALLOWED_HOSTS (comma-separated). */
 export function hostAllowed(hostname: string, env: Env): boolean {
   if (isLocalHost(hostname) || isIpLiteral(hostname)) return true;
-  const allowed = (env.OPENCHAT_ALLOWED_HOSTS ?? '').split(',').map((h) => h.trim().toLowerCase()).filter(Boolean);
+  const allowed = (envVar(env, 'ALLOWED_HOSTS') ?? '').split(',').map((h) => h.trim().toLowerCase()).filter(Boolean);
   return allowed.includes(hostname.toLowerCase());
 }
 
@@ -63,7 +64,7 @@ export function createApp(deps: Deps): Hono {
   app.use('/api/*', async (c, next) => {
     const { hostname } = new URL(c.req.url);
     if (!hostAllowed(hostname, deps.env)) {
-      throw new HttpError(403, `OpenChat doesn't answer on ${hostname}. To use this name, add it to OPENCHAT_ALLOWED_HOSTS.`);
+      throw new HttpError(403, `Pinion doesn't answer on ${hostname}. To use this name, add it to PINION_ALLOWED_HOSTS.`);
     }
     await next();
   });

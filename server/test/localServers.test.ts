@@ -136,7 +136,7 @@ describe('detection addresses', () => {
     expect(detectCandidates('  ')).toEqual(DETECT_CANDIDATES);
   });
 
-  it('looks on another machine when OPENCHAT_DETECT_HOST names one', () => {
+  it('looks on another machine when PINION_DETECT_HOST names one', () => {
     expect(detectCandidates('host.docker.internal')).toEqual([
       { type: 'ollama', baseUrl: 'http://host.docker.internal:11434' },
       { type: 'lmstudio', baseUrl: 'http://host.docker.internal:1234' },

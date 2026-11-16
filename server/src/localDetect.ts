@@ -5,7 +5,7 @@ import type { LocalModelInfo } from './providers/types';
 import { DETECT_CANDIDATES, SERVER_TYPE_NAMES, localModelId, parseLocalModelId } from '../../shared/localModels';
 import type { LocalAvailability, LocalServerStatus } from '../../shared/types';
 
-/** The detection addresses, on another machine when OPENCHAT_DETECT_HOST names one (in Docker, host.docker.internal). */
+/** The detection addresses, on another machine when PINION_DETECT_HOST names one (in Docker, host.docker.internal). */
 export function detectCandidates(host?: string): typeof DETECT_CANDIDATES {
   const name = host?.trim();
   if (!name) return DETECT_CANDIDATES;

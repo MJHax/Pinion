@@ -91,7 +91,7 @@ describe('web search settings routes', () => {
   it('tests the saved search setup', async () => {
     const fake = await startFakeSearchServer();
     try {
-      const { call } = makeApp({}, { OPENROUTER_API_KEY: 'k', OPENCHAT_TAVILY_URL: fake.url });
+      const { call } = makeApp({}, { OPENROUTER_API_KEY: 'k', PINION_TAVILY_URL: fake.url });
       const test = async () => (await (await call('POST', '/api/settings/test-search')).json()) as { ok: boolean; error?: string };
 
       expect(await test()).toEqual({ ok: false, error: 'Choose a search service and fill in its details first.' });
