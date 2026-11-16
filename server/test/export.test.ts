@@ -57,11 +57,11 @@ describe('GET /api/data/export', () => {
     const res = await call('GET', '/api/data/export');
     expect(res.status).toBe(200);
     expect(res.headers.get('content-type')).toBe('application/zip');
-    expect(res.headers.get('content-disposition')).toMatch(/^attachment; filename="openchat-export-\d{4}-\d{2}-\d{2}\.zip"$/);
+    expect(res.headers.get('content-disposition')).toMatch(/^attachment; filename="pinion-export-\d{4}-\d{2}-\d{2}\.zip"$/);
     const files = readZip(Buffer.from(await res.arrayBuffer()));
     const names = [...files.keys()];
 
-    const raw = files.get('openchat-export/data.json')!.toString();
+    const raw = files.get('pinion-export/data.json')!.toString();
     expect(raw).not.toContain('sk-or-secret');
     const data = JSON.parse(raw);
     expect(data.chats).toHaveLength(4);
@@ -75,35 +75,35 @@ describe('GET /api/data/export', () => {
     expect(raw).not.toContain('tvly-secret');
 
     // Same title twice: each file is still separate.
-    const a = `openchat-export/chats/Plans- a-b -test-${chatA.slice(0, 8)}.md`;
+    const a = `pinion-export/chats/Plans- a-b -test-${chatA.slice(0, 8)}.md`;
     expect(names).toContain(a);
-    expect(names).toContain(`openchat-export/chats/Plans- a-b -test-${chatB.slice(0, 8)}.md`);
+    expect(names).toContain(`pinion-export/chats/Plans- a-b -test-${chatB.slice(0, 8)}.md`);
     const md = files.get(a)!.toString();
     expect(md).toContain('Hello there');
     expect(md).toContain('Second answer');
     expect(md).not.toContain('First answer');
     expect(md).toContain('1 message(s) on other branches');
     expect(md).toContain(`[notes.txt](../attachments/${upload.id}/notes.txt)`);
-    expect(names.some((n) => n.startsWith('openchat-export/images/Cats-'))).toBe(true);
-    expect(names.find((n) => n.startsWith('openchat-export/videos/Waves-'))).toBeDefined();
+    expect(names.some((n) => n.startsWith('pinion-export/images/Cats-'))).toBe(true);
+    expect(names.find((n) => n.startsWith('pinion-export/videos/Waves-'))).toBeDefined();
 
-    expect(files.get(`openchat-export/attachments/${upload.id}/notes.txt`)!.toString()).toBe('my notes');
-    expect([...files.get(`openchat-export/attachments/${png.id}/cat.png`)!]).toEqual([1, 2, 3, 4]);
-    expect(files.get(`openchat-export/clips/${vr.id}.mp4`)!.toString()).toBe('fake mp4 bytes');
+    expect(files.get(`pinion-export/attachments/${upload.id}/notes.txt`)!.toString()).toBe('my notes');
+    expect([...files.get(`pinion-export/attachments/${png.id}/cat.png`)!]).toEqual([1, 2, 3, 4]);
+    expect(files.get(`pinion-export/clips/${vr.id}.mp4`)!.toString()).toBe('fake mp4 bytes');
   });
 
   it('includes columns added to chats later', async () => {
     const { call, db } = await seed();
     db.exec("ALTER TABLE chats ADD COLUMN future_note TEXT DEFAULT 'kept'");
     const files = readZip(Buffer.from(await (await call('GET', '/api/data/export')).arrayBuffer()));
-    expect(JSON.parse(files.get('openchat-export/data.json')!.toString()).chats[0].future_note).toBe('kept');
+    expect(JSON.parse(files.get('pinion-export/data.json')!.toString()).chats[0].future_note).toBe('kept');
   });
 
   it("includes each chat's own instructions", async () => {
     const { call, db } = await seed();
     db.prepare('UPDATE chats SET instructions = ?').run('be brief');
     const files = readZip(Buffer.from(await (await call('GET', '/api/data/export')).arrayBuffer()));
-    expect(JSON.parse(files.get('openchat-export/data.json')!.toString()).chats[0].instructions).toBe('be brief');
+    expect(JSON.parse(files.get('pinion-export/data.json')!.toString()).chats[0].instructions).toBe('be brief');
   });
 });
 
@@ -112,7 +112,7 @@ describe('local servers in the export', () => {
     const { call, db } = makeApp();
     addServer(db, { type: 'ollama', name: 'Ollama', baseUrl: 'http://localhost:11434', auto: false });
     const files = readZip(Buffer.from(await (await call('GET', '/api/data/export')).arrayBuffer()));
-    const data = JSON.parse(files.get('openchat-export/data.json')!.toString());
+    const data = JSON.parse(files.get('pinion-export/data.json')!.toString());
     expect(data.localServers).toHaveLength(1);
     expect(data.localServers[0]).toMatchObject({ type: 'ollama', name: 'Ollama', base_url: 'http://localhost:11434' });
   });

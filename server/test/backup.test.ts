@@ -33,18 +33,18 @@ describe('backup in the export', () => {
   it('adds a backup with manifest, database and clips', async () => {
     const { call, clipId } = await seed();
     const files = readZip(await exportZip(call));
-    const manifest = JSON.parse(files.get('openchat-export/backup/manifest.json')!.toString());
-    expect(manifest).toMatchObject({ format: 'openchat-backup', formatVersion: 1, schemaVersion: SCHEMA_VERSION });
+    const manifest = JSON.parse(files.get('pinion-export/backup/manifest.json')!.toString());
+    expect(manifest).toMatchObject({ format: 'pinion-backup', formatVersion: 1, schemaVersion: SCHEMA_VERSION });
     expect(typeof manifest.createdAt).toBe('string');
-    expect(files.has('openchat-export/backup/openchat.db')).toBe(true);
-    expect(files.get(`openchat-export/backup/clips/${clipId}.mp4`)!.toString()).toBe('clip bytes');
+    expect(files.has('pinion-export/backup/pinion.db')).toBe(true);
+    expect(files.get(`pinion-export/backup/clips/${clipId}.mp4`)!.toString()).toBe('clip bytes');
   });
 
   it('the database copy holds the data', async () => {
     const { call, chatId } = await seed();
     const files = readZip(await exportZip(call));
     const file = join(mkdtempSync(join(tmpdir(), 'openchat-test-')), 'copy.db');
-    writeFileSync(file, files.get('openchat-export/backup/openchat.db')!);
+    writeFileSync(file, files.get('pinion-export/backup/pinion.db')!);
     const copy = new Database(file, { readonly: true });
     expect((copy.prepare('SELECT id FROM chats').all() as { id: string }[]).map((r) => r.id)).toEqual([chatId]);
     expect((copy.prepare('SELECT content FROM memories').get() as { content: string }).content).toBe('Likes tea');

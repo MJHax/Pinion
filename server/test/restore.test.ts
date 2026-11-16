@@ -149,13 +149,13 @@ describe('restoreBackup', () => {
 
   it('refuses an export with no backup inside', async () => {
     const dst = await target();
-    const zip = await writeZip(new Map([['openchat-export/data.json', Buffer.from('{}')]]));
+    const zip = await writeZip(new Map([['pinion-export/data.json', Buffer.from('{}')]]));
     await expectRefused(dst, zip, /isn't an OpenChat backup/);
   });
 
   it('refuses a newer backup', async () => {
     const files = readZip(readFileSync(await exportOf(await source())));
-    const name = 'openchat-export/backup/manifest.json';
+    const name = 'pinion-export/backup/manifest.json';
     files.set(name, Buffer.from(JSON.stringify({ ...JSON.parse(files.get(name)!.toString()), schemaVersion: SCHEMA_VERSION + 1 })));
     await expectRefused(await target(), await writeZip(files), /Update this OpenChat first/);
   });
@@ -163,7 +163,7 @@ describe('restoreBackup', () => {
   it('imports an older backup', async () => {
     const src = await source();
     const files = readZip(readFileSync(await exportOf(src)));
-    const name = 'openchat-export/backup/openchat.db';
+    const name = 'pinion-export/backup/pinion.db';
     const file = join(work(), 'old.db');
     writeFileSync(file, files.get(name)!);
     const old = new Database(file);
@@ -184,7 +184,7 @@ describe('restoreBackup', () => {
 
   it('refuses a clip name that leaves the folder', async () => {
     const files = readZip(readFileSync(await exportOf(await source())));
-    files.set('openchat-export/backup/clips/../../x.mp4', Buffer.from('evil'));
+    files.set('pinion-export/backup/clips/../../x.mp4', Buffer.from('evil'));
     const dst = await target();
     await expectRefused(dst, await writeZip(files), /damaged or incomplete/);
     expect(existsSync(join(dirname(dst.deps.mediaDir), 'x.mp4'))).toBe(false);
@@ -263,5 +263,26 @@ describe('restoreBackup', () => {
     await restoreBackup(dst.deps, zip);
     await restoreBackup(dst.deps, zip);
     expect(dst.db.prepare('SELECT name FROM sqlite_sequence GROUP BY name HAVING count(*) > 1').all()).toEqual([]);
+  });
+});
+
+describe('backups made before the rename', () => {
+  it('imports a backup made by OpenChat', async () => {
+    const src = await source();
+    const files = readZip(readFileSync(await exportOf(src)));
+    // The layout OpenChat wrote: openchat-export/backup/openchat.db with an 'openchat-backup' manifest.
+    const old = new Map<string, Buffer>();
+    for (const [name, data] of files) {
+      old.set(name.replace(/^pinion-export\//, 'openchat-export/').replace(/\/backup\/pinion\.db$/, '/backup/openchat.db'), data);
+    }
+    const manifest = 'openchat-export/backup/manifest.json';
+    old.set(manifest, Buffer.from(JSON.stringify({ ...JSON.parse(old.get(manifest)!.toString()), format: 'openchat-backup' })));
+    expect([...old.keys()].some((n) => n.startsWith('pinion-'))).toBe(false);
+
+    const dst = await target();
+    await restoreBackup(dst.deps, await writeZip(old));
+    expect(chatIds(dst)).toEqual(chatIds(src));
+    expect(readdirSync(dst.deps.mediaDir)).toEqual([`${src.video.reply.id}.mp4`]);
+    expect(getSetting(dst.db, 'about_me')).toBe('From the laptop');
   });
 });

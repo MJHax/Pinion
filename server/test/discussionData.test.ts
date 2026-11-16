@@ -62,13 +62,13 @@ describe('discussions in stats, the Data tab and export', () => {
   it('exports a discussion with speaker names and its summary', async () => {
     const { call, db } = await seeded();
     const files = readZip(Buffer.from(await (await call('GET', '/api/data/export')).arrayBuffer()));
-    const name = [...files.keys()].find((n) => n.startsWith('openchat-export/discussions/'));
-    expect(name).toMatch(/^openchat-export\/discussions\/Which came first, the chicken or the egg-[0-9a-f]{8}\.md$/);
+    const name = [...files.keys()].find((n) => n.startsWith('pinion-export/discussions/'));
+    expect(name).toMatch(/^pinion-export\/discussions\/Which came first, the chicken or the egg-[0-9a-f]{8}\.md$/);
     const md = files.get(name!)!.toString();
     expect(md).toContain('**Egg-Defender** (test/tools): The egg came first.');
     expect(md).toContain('**Host**: Nice.');
     expect(md).toMatch(/## Summary\n\nThey argued about eggs\.\n$/);
-    const data = JSON.parse(files.get('openchat-export/data.json')!.toString());
+    const data = JSON.parse(files.get('pinion-export/data.json')!.toString());
     expect(data.discussions).toHaveLength(1);
     expect(data.discussionParticipants).toHaveLength(2);
     expect(db).toBeTruthy();

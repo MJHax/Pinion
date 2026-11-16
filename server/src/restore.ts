@@ -4,7 +4,7 @@ import { join } from 'node:path';
 import Database from 'better-sqlite3';
 import type { Deps } from './app';
 import { busyReason } from './activity';
-import { BACKUP_DIR, SECRET_SETTINGS, type BackupManifest } from './backup';
+import { BACKUP_FORMATS, BACKUP_LAYOUTS, SECRET_SETTINGS, type BackupManifest } from './backup';
 import { now, openDb, SCHEMA_VERSION, type DB } from './db';
 import { purgeDeleted } from './dataStore';
 import { HttpError } from './http';
@@ -32,7 +32,7 @@ async function readManifest(zipFile: string, entry: ZipFileEntry | undefined, di
   } catch {
     throw new HttpError(400, NOT_A_BACKUP);
   }
-  if (m.format !== 'openchat-backup' || m.formatVersion !== 1 || typeof m.schemaVersion !== 'number') throw new HttpError(400, NOT_A_BACKUP);
+  if (!BACKUP_FORMATS.includes(m.format as BackupManifest['format']) || m.formatVersion !== 1 || typeof m.schemaVersion !== 'number') throw new HttpError(400, NOT_A_BACKUP);
   if (m.schemaVersion > SCHEMA_VERSION) throw new HttpError(400, NEWER);
   return m as BackupManifest;
 }
@@ -125,7 +125,7 @@ export async function restoreBackup(deps: Deps, zipFile: string): Promise<void> 
   if (restoring) throw new HttpError(409, 'An import is already running. Wait for it to finish.');
   const busy = busyReason(deps);
   if (busy) throw new HttpError(409, busy);
-  const work = mkdtempSync(join(tmpdir(), 'openchat-restore-'));
+  const work = mkdtempSync(join(tmpdir(), 'pinion-restore-'));
   const staging = `${deps.mediaDir}.restoring`;
   restoring = true;
   try {
@@ -136,15 +136,16 @@ export async function restoreBackup(deps: Deps, zipFile: string): Promise<void> 
       if (err instanceof ZipError) throw new HttpError(400, DAMAGED);
       throw err;
     }
-    await readManifest(zipFile, index.get(`${BACKUP_DIR}/manifest.json`), work);
+    const layout = BACKUP_LAYOUTS.find((l) => index.has(`${l.dir}/manifest.json`));
+    await readManifest(zipFile, layout && index.get(`${layout.dir}/manifest.json`), work);
 
-    const dbEntry = index.get(`${BACKUP_DIR}/openchat.db`);
+    const dbEntry = index.get(`${layout!.dir}/${layout!.db}`);
     if (!dbEntry) throw new HttpError(400, DAMAGED);
-    const clipPrefix = `${BACKUP_DIR}/clips/`;
+    const clipPrefix = `${layout!.dir}/clips/`;
     const clips = [...index.values()].filter((e) => e.name.startsWith(clipPrefix));
     if (clips.some((e) => !CLIP_NAME.test(e.name.slice(clipPrefix.length)))) throw new HttpError(400, DAMAGED);
 
-    const copyFile = join(work, 'openchat.db');
+    const copyFile = join(work, 'backup.db');
     rmSync(staging, { recursive: true, force: true });
     mkdirSync(staging, { recursive: true });
     try {

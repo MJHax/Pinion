@@ -10,7 +10,7 @@ import { backupEntries, SECRET_SETTINGS } from './backup';
 import { getDiscussionDetail } from './discussion/store';
 import type { DiscussionDetail, Message, ThreadKind } from '../../shared/types';
 
-const ROOT = 'openchat-export';
+const ROOT = 'pinion-export';
 const FOLDER: Record<ThreadKind, string> = { chat: 'chats', image: 'images', video: 'videos', discussion: 'discussions' };
 
 /** A file name that is safe on Windows, macOS and Linux; never empty. */

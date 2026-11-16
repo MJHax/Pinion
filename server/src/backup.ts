@@ -10,14 +10,23 @@ import type { ZipEntry } from './zip';
 /** Settings never written into an export or a backup. */
 export const SECRET_SETTINGS = ['api_key', 'tavily_api_key'] as const;
 
-/** Where the backup sits inside the export zip. */
-export const BACKUP_DIR = 'openchat-export/backup';
+/** Where the backup sits inside the export zip, and its database file's name. */
+export const BACKUP_DIR = 'pinion-export/backup';
+export const BACKUP_DB = 'pinion.db';
 
-export interface BackupManifest { format: 'openchat-backup'; formatVersion: 1; schemaVersion: number; createdAt: string }
+/** Where to look when importing: this layout first, then the one exports had before the rename from OpenChat. */
+export const BACKUP_LAYOUTS = [
+  { dir: BACKUP_DIR, db: BACKUP_DB },
+  { dir: 'openchat-export/backup', db: 'openchat.db' },
+] as const;
+
+export const BACKUP_FORMATS = ['pinion-backup', 'openchat-backup'] as const;
+
+export interface BackupManifest { format: (typeof BACKUP_FORMATS)[number]; formatVersion: 1; schemaVersion: number; createdAt: string }
 
 /** A complete copy of the database with the secret settings wiped, made when the zip writer reaches it. */
 async function* databaseCopy(deps: Deps, workDir: string): AsyncGenerator<Uint8Array> {
-  const file = join(workDir, `openchat-backup-${randomUUID()}.db`);
+  const file = join(workDir, `pinion-backup-${randomUUID()}.db`);
   try {
     // VACUUM INTO writes a consistent, compact copy, including what is still only in the WAL.
     deps.db.prepare('VACUUM INTO ?').run(file);
@@ -39,9 +48,9 @@ async function* databaseCopy(deps: Deps, workDir: string): AsyncGenerator<Uint8A
 
 /** The backup part of the export: a manifest, the database copy and every clip file. */
 export async function* backupEntries(deps: Deps, workDir = tmpdir()): AsyncGenerator<ZipEntry> {
-  const manifest: BackupManifest = { format: 'openchat-backup', formatVersion: 1, schemaVersion: SCHEMA_VERSION, createdAt: new Date().toISOString() };
+  const manifest: BackupManifest = { format: 'pinion-backup', formatVersion: 1, schemaVersion: SCHEMA_VERSION, createdAt: new Date().toISOString() };
   yield { name: `${BACKUP_DIR}/manifest.json`, data: () => [Buffer.from(JSON.stringify(manifest, null, 2))] };
-  yield { name: `${BACKUP_DIR}/openchat.db`, data: () => databaseCopy(deps, workDir) };
+  yield { name: `${BACKUP_DIR}/${BACKUP_DB}`, data: () => databaseCopy(deps, workDir) };
   const clips = existsSync(deps.mediaDir) ? readdirSync(deps.mediaDir).filter((f) => f.endsWith('.mp4')) : [];
   for (const name of clips) {
     const file = join(deps.mediaDir, name);

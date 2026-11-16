@@ -29,7 +29,7 @@ export function dataRoutes(deps: Deps): Hono {
     const day = new Date().toLocaleDateString('sv-SE'); // YYYY-MM-DD, local
     return c.body(toWebStream(zipStream(exportEntries(deps))), 200, {
       'Content-Type': 'application/zip',
-      'Content-Disposition': `attachment; filename="openchat-export-${day}.zip"`,
+      'Content-Disposition': `attachment; filename="pinion-export-${day}.zip"`,
       'Cache-Control': 'no-store',
     });
   });
@@ -41,7 +41,7 @@ export function dataRoutes(deps: Deps): Hono {
     if (c.req.header('content-type') !== 'application/zip') throw new HttpError(415, 'Send the backup as application/zip.');
     const body = c.req.raw.body;
     if (!body) throw new HttpError(400, 'Choose a backup file to import.');
-    const dir = mkdtempSync(join(tmpdir(), 'openchat-import-'));
+    const dir = mkdtempSync(join(tmpdir(), 'pinion-import-'));
     try {
       const file = join(dir, 'backup.zip');
       await pipeline(Readable.fromWeb(body as WebReadableStream<Uint8Array>), createWriteStream(file));
