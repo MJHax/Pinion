@@ -1,12 +1,25 @@
-![OpenChat](docs/brand/banner.png)
+![Pinion](docs/brand/banner.png)
 
-# OpenChat
+# Pinion
 
 **A self-hosted chat app for [OpenRouter](https://openrouter.ai) and your own local models.**
 
 Chat with hundreds of cloud models through one OpenRouter key, or stay fully offline with [Ollama](https://ollama.com) or [LM Studio](https://lmstudio.ai), with no account or key needed.
 
-<p align="center"><img src="docs/screenshots/chat.png" alt="OpenChat chatting with a local model" width="75%"></p>
+<p align="center"><img src="docs/screenshots/chat.png" alt="Pinion chatting with a local model" width="75%"></p>
+
+## How this was built
+
+I came up with the ideas and the product direction. [Claude Code](https://claude.com/claude-code) helped turn my brain dumps into design specs and step-by-step implementation plans, then built each feature while I tested it. Every spec and plan is in [`docs/superpowers`](docs/superpowers), if you want to see how it came together.
+
+## Why another chat app?
+
+[Open WebUI](https://openwebui.com) and [LibreChat](https://www.librechat.ai) are great, and much bigger than Pinion. If you want a full platform with users, plugins and pipelines, use one of them. Pinion is lighter, and focused on comparing and debating models:
+
+- **Nothing else to install.** No Docker or database server needed: `npm start` and you're running.
+- **Models debate**, with an optional moderator handing out the floor.
+- **Compare** sends one message to local and cloud models at once, and shows each reply's cost and speed.
+- **Cost tracking is built in**, with spending limits that stop requests once you hit your budget.
 
 ## Highlights
 
@@ -30,10 +43,6 @@ Every reply shows its cost, token count and speed. The Stats page breaks down sp
 
 Chats that only use local models never go to OpenRouter, not even to write their title. Your chats, files and settings stay in one SQLite file on your machine.
 
-### Lightweight
-
-`npm install && npm start` and you're running. No database server and no Docker required (though a Docker setup is included).
-
 ### Also included
 
 - Edit and regenerate messages, with every version kept
@@ -49,35 +58,37 @@ Chats that only use local models never go to OpenRouter, not even to write their
 You need [Node.js](https://nodejs.org) 22.12 or newer.
 
 ```bash
-git clone https://github.com/MJHax/OpenChat.git
-cd OpenChat
+git clone https://github.com/MJHax/Pinion.git
+cd Pinion
 npm install
 npm start
 ```
 
 Open http://127.0.0.1:3000.
 
+To change the port or other startup settings, copy `.env.example` to `.env` and edit it. Settings from before the rename (`OPENCHAT_PORT` and the other `OPENCHAT_*` names) still work.
+
 ## Add models
 
 Pick one or both:
 
-- **Local models (free, private):** install [Ollama](https://ollama.com) and download a model, for example `ollama pull qwen3:1.7b`. In OpenChat, open **Model Library** and click **Add** on the model.
+- **Local models (free, private):** install [Ollama](https://ollama.com) and download a model, for example `ollama pull qwen3:1.7b`. In Pinion, open **Model Library** and click **Add** on the model.
 - **Cloud models:** create a key at [openrouter.ai/keys](https://openrouter.ai/keys), paste it in **Settings → General → OpenRouter**, then add models from the **Model Library**.
 
 ## Run it on a home server
 
-To use OpenChat from other devices on your network, run it with Docker:
+To use Pinion from other devices on your network, run it with Docker:
 
 ```bash
-git clone https://github.com/MJHax/OpenChat.git
-cd OpenChat
+git clone https://github.com/MJHax/Pinion.git
+cd Pinion
 docker compose up -d
 ```
 
 Open `http://<server address>:3000` from any device on your network. To update, run `git pull`, then `docker compose up -d --build`.
 
 > [!WARNING]
-> OpenChat has no login. Anyone who can reach it can read your chats and use your OpenRouter credit. Only run it on a network you trust, and never expose it to the internet. See [SECURITY.md](SECURITY.md).
+> Pinion has no login. Anyone who can reach it can read your chats and use your OpenRouter credit. Only run it on a network you trust, and never expose it to the internet. See [SECURITY.md](SECURITY.md).
 
 ## Back up or move your data
 
