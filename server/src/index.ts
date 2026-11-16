@@ -11,6 +11,7 @@ import { dirname, join } from 'node:path';
 import { networkInterfaces } from 'node:os';
 import { detectCandidates, detectLocalServers } from './localDetect';
 import { envVar } from './env';
+import { resolveDbFile } from './dbPath';
 
 try {
   process.loadEnvFile('.env');
@@ -18,7 +19,7 @@ try {
   // no .env file — the key can be set in Settings instead
 }
 
-const dbFile = process.env.OPENCHAT_DB ?? 'data/openchat.db';
+const dbFile = resolveDbFile(process.env);
 const db = openDb(dbFile);
 cleanupPending(db);
 failInterruptedGenerations(db);
