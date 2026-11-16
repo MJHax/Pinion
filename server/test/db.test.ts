@@ -75,7 +75,7 @@ describe('database', () => {
   });
 
   it('adds input_modalities to an old models table', () => {
-    const file = join(mkdtempSync(join(tmpdir(), 'openchat-')), 'old.db');
+    const file = join(mkdtempSync(join(tmpdir(), 'pinion-')), 'old.db');
     const old = new Database(file);
     old.exec('CREATE TABLE models (id TEXT PRIMARY KEY, display_name TEXT NOT NULL, context_length INTEGER, prompt_price REAL, completion_price REAL, added_at INTEGER NOT NULL)');
     old.close();
@@ -122,7 +122,7 @@ describe('image and video storage', () => {
   });
 
   it('migrates existing rows', () => {
-    const file = join(mkdtempSync(join(tmpdir(), 'openchat-')), 'old.db');
+    const file = join(mkdtempSync(join(tmpdir(), 'pinion-')), 'old.db');
     const old = new Database(file);
     old.exec(`
       CREATE TABLE chats (id TEXT PRIMARY KEY, title TEXT NOT NULL, created_at INTEGER NOT NULL, updated_at INTEGER NOT NULL, active_leaf_id TEXT);
@@ -142,7 +142,7 @@ describe('image and video storage', () => {
   });
 
   it('backfills hashes for attachments written before the column existed', () => {
-    const file = join(mkdtempSync(join(tmpdir(), 'openchat-')), 'old.db');
+    const file = join(mkdtempSync(join(tmpdir(), 'pinion-')), 'old.db');
     const db = openDb(file);
     const data = new TextEncoder().encode('hello');
     const a = insertPending(db, { filename: 'a.txt', kind: 'text', mime: 'text/plain', data });
@@ -156,7 +156,7 @@ describe('image and video storage', () => {
 
 describe('summary usage rows', () => {
   it('migrates usage_events to allow summary rows, keeping old rows', () => {
-    const file = join(mkdtempSync(join(tmpdir(), 'openchat-')), 'old.db');
+    const file = join(mkdtempSync(join(tmpdir(), 'pinion-')), 'old.db');
     const old = new Database(file);
     old.exec(`
       CREATE TABLE usage_events (
@@ -206,7 +206,7 @@ describe('web search storage', () => {
   });
 
   it('adds the web search columns to old databases', () => {
-    const file = join(mkdtempSync(join(tmpdir(), 'openchat-')), 'old.db');
+    const file = join(mkdtempSync(join(tmpdir(), 'pinion-')), 'old.db');
     const old = new Database(file);
     old.exec(`
       CREATE TABLE models (id TEXT PRIMARY KEY, display_name TEXT NOT NULL, context_length INTEGER, prompt_price REAL, completion_price REAL, added_at INTEGER NOT NULL);
@@ -227,7 +227,7 @@ describe('web search storage', () => {
   });
 
   it('adds the timing columns to old databases, and old messages read timing: null', () => {
-    const file = join(mkdtempSync(join(tmpdir(), 'openchat-')), 'old.db');
+    const file = join(mkdtempSync(join(tmpdir(), 'pinion-')), 'old.db');
     const old = new Database(file);
     old.exec(`
       CREATE TABLE chats (id TEXT PRIMARY KEY, title TEXT NOT NULL, created_at INTEGER NOT NULL, updated_at INTEGER NOT NULL, active_leaf_id TEXT);
@@ -263,7 +263,7 @@ describe('discussion storage', () => {
   });
 
   it('adds participant columns to an old messages table', () => {
-    const file = join(mkdtempSync(join(tmpdir(), 'openchat-')), 'old.db');
+    const file = join(mkdtempSync(join(tmpdir(), 'pinion-')), 'old.db');
     const old = new Database(file);
     old.exec(`
       CREATE TABLE chats (id TEXT PRIMARY KEY, title TEXT NOT NULL, created_at INTEGER NOT NULL, updated_at INTEGER NOT NULL, active_leaf_id TEXT);

@@ -524,7 +524,7 @@ export interface StatsResponse {
   biggestByLength: BigChat[];
   /** When cache, speed, error and feature tracking began (first non-backfilled call); null if never. */
   trackingSince: number | null;
-  /** Everything OpenChat spent in the range, chats, images and videos together: matches the OpenRouter bill. */
+  /** Everything Pinion spent in the range, chats, images and videos together: matches the OpenRouter bill. */
   allSpend: number;
 }
 
@@ -555,11 +555,11 @@ export interface MediaStatsResponse {
   }[];
   /** Images only: fresh images, edits of generated ones, edits of uploaded photos. */
   modes: { new: number; editGenerated: number; editUpload: number } | null;
-  /** Everything OpenChat spent in the range, every kind: matches the OpenRouter bill. */
+  /** Everything Pinion spent in the range, every kind: matches the OpenRouter bill. */
   allSpend: number;
 }
 
-/** Things OpenChat made that a chat can attach: images from image threads, and each chat's latest generated files. */
+/** Things Pinion made that a chat can attach: images from image threads, and each chat's latest generated files. */
 export type LibraryFileType = 'image' | 'video' | 'doc' | 'code';
 
 /** One chat a Library file is in; `at` is when it appeared there. */

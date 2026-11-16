@@ -76,7 +76,7 @@ describe('cacheSavings', () => {
 
 describe('usage backfill', () => {
   it('copies existing replies once, on the first open after the table appears', () => {
-    const file = join(mkdtempSync(join(tmpdir(), 'openchat-')), 'old.db');
+    const file = join(mkdtempSync(join(tmpdir(), 'pinion-')), 'old.db');
     let db = openDb(file);
     const chat = createChat(db);
     const user = insertMessage(db, { chatId: chat.id, parentId: null, role: 'user', content: 'Hi', webSearch: true });

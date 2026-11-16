@@ -69,7 +69,7 @@ function finish(groups: Iterable<Group>): LibraryItem[] {
 
 /**
  * Every uploaded and generated file, newest first. Copies with the same contents are one item listing each chat
- * they are in; an upload that is a copy of something OpenChat made counts toward that generated item instead.
+ * they are in; an upload that is a copy of something Pinion made counts toward that generated item instead.
  */
 export function libraryItems(db: DB, mediaDir: string): LibraryResponse {
   const generated = new Map<string, Group>();

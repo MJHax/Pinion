@@ -142,7 +142,7 @@ export function uploadAttachment(file: File, onProgress: (fraction: number) => v
       if (xhr.status === 201 && data) resolve(data);
       else reject(new Error(data?.error ?? `Upload failed (${xhr.status})`));
     };
-    xhr.onerror = () => reject(new Error('Upload failed. Check that OpenChat is still running.'));
+    xhr.onerror = () => reject(new Error('Upload failed. Check that Pinion is still running.'));
     xhr.onabort = () => reject(Object.assign(new Error('Upload cancelled'), { name: 'AbortError' }));
     signal?.addEventListener('abort', () => xhr.abort());
     const form = new FormData();

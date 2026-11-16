@@ -46,7 +46,7 @@ export function attachmentRoutes({ db }: Deps): Hono {
     const row = getAttachmentRow(db, id);
     const data = row && getAttachmentData(db, id);
     if (!row || !data) throw new HttpError(404, 'Attachment not found.');
-    // An SVG opened on its own would run as a page on OpenChat's origin; the sandbox stops any script in it.
+    // An SVG opened on its own would run as a page on Pinion's origin; the sandbox stops any script in it.
     const sandbox: Record<string, string> = row.mime === SVG_MIME ? { 'Content-Security-Policy': "default-src 'none'; style-src 'unsafe-inline'; img-src data:; sandbox" } : {};
     return c.body(new Uint8Array(data), 200, {
       ...sandbox,

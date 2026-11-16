@@ -34,7 +34,7 @@ export const SLOW_POLL_MS = 5 * 60_000;
 export const SLOW_AFTER_MS = 30 * 60_000;
 /** A finished clip whose download keeps failing is given up on this long after the first failure. */
 export const DOWNLOAD_GIVE_UP_MS = 24 * 60 * 60_000;
-const GAVE_UP = "The clip finished, but it couldn't be downloaded for 24 hours, so OpenChat stopped trying. OpenRouter has likely charged for it.";
+const GAVE_UP = "The clip finished, but it couldn't be downloaded for 24 hours, so Pinion stopped trying. OpenRouter has likely charged for it.";
 const FINAL = new Set(['completed', 'failed', 'cancelled', 'expired']);
 
 const nextPoll = (startedAt: number, at: number) => at + (at - startedAt < SLOW_AFTER_MS ? FAST_POLL_MS : SLOW_POLL_MS);

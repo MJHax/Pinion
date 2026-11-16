@@ -34,16 +34,16 @@ export function CatalogFilters({ filter, onFilter, sort, onSort, providers, load
           return (
             <button
               key={c.id}
-              className={`chip${on ? ' on' : ''}${c.usedByOpenChat ? '' : ' unused'}`}
+              className={`chip${on ? ' on' : ''}${c.usedByPinion ? '' : ' unused'}`}
               aria-pressed={on}
-              title={c.usedByOpenChat ? undefined : UNUSED_HINT}
+              title={c.usedByPinion ? undefined : UNUSED_HINT}
               onClick={() => onFilter({ ...filter, capabilities: toggle(filter.capabilities, c.id) })}
             >
               {c.label}
             </button>
           );
         })}
-        {CAPABILITIES.some((c) => !c.usedByOpenChat) && <span className="muted small">• {UNUSED_HINT}</span>}
+        {CAPABILITIES.some((c) => !c.usedByPinion) && <span className="muted small">• {UNUSED_HINT}</span>}
       </div>
 
       <div className="chip-row" role="group" aria-label="Providers">

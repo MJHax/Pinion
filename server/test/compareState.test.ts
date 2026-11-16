@@ -22,7 +22,7 @@ async function seed() {
 
 describe('comparison state', () => {
   it('adds compare_parent_id to an existing database', () => {
-    const file = join(mkdtempSync(join(tmpdir(), 'openchat-')), 'old.db');
+    const file = join(mkdtempSync(join(tmpdir(), 'pinion-')), 'old.db');
     const old = new Database(file);
     old.exec('CREATE TABLE chats (id TEXT PRIMARY KEY, title TEXT NOT NULL, created_at INTEGER NOT NULL, updated_at INTEGER NOT NULL, active_leaf_id TEXT)');
     old.prepare("INSERT INTO chats VALUES ('c1', 'Old chat', 1, 1, NULL)").run();

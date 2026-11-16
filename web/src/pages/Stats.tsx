@@ -16,7 +16,7 @@ const zone = () => Intl.DateTimeFormat().resolvedOptions().timeZone;
 
 type View = 'chats' | 'images' | 'video';
 const VIEWS: { id: View; label: string }[] = [{ id: 'chats', label: 'Chats' }, { id: 'images', label: 'Images' }, { id: 'video', label: 'Video' }];
-const VIEW_KEY = 'openchat.stats.view';
+const VIEW_KEY = 'pinion.stats.view';
 const loadView = (): View => { try { const v = localStorage.getItem(VIEW_KEY); return v === 'images' || v === 'video' ? v : 'chats'; } catch { return 'chats'; } };
 const saveView = (v: View) => { try { localStorage.setItem(VIEW_KEY, v); } catch { /* private mode */ } };
 
@@ -67,7 +67,7 @@ export function Stats() {
         ) : media ? (
           <MediaStats stats={media} noun={view === 'video' ? 'clip' : 'image'} />
         ) : null}
-        {shown && <p className="muted small">All OpenChat spend in this range: {money(shown.allSpend)}</p>}
+        {shown && <p className="muted small">All Pinion spend in this range: {money(shown.allSpend)}</p>}
       </div>
     </div>
   );

@@ -25,7 +25,7 @@ describe('search toggle storage', () => {
     expect(loadSearch('b')).toBe(false);
     saveSearch('a', false);
     expect(loadSearch('a')).toBe(false);
-    expect(localStorage.getItem('openchat.search.a')).toBe('0');
+    expect(localStorage.getItem('pinion.search.a')).toBe('0');
   });
 
   it('still works when storage throws', () => {

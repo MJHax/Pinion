@@ -7,7 +7,7 @@ export interface DiscussionPrefs {
 
 export const DEFAULT_DISCUSSION_PREFS: DiscussionPrefs = { reveal: 'natural', waitForMe: false };
 
-const KEY = 'openchat.discussionPrefs';
+const KEY = 'pinion.discussionPrefs';
 
 /** Saved pacing preferences; the defaults when nothing valid is saved or storage is unavailable. */
 export function loadDiscussionPrefs(): DiscussionPrefs {

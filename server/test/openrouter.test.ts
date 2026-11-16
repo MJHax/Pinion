@@ -91,7 +91,7 @@ describe('OpenRouter client', () => {
     const { fn, calls } = fakeFetch(() => sse('data: [DONE]'));
     await collect(createOpenRouterClient(fn).streamChat({ apiKey: 'k', model: 'openai/gpt-4o', messages: [{ role: 'user', content: 'hi' }] }));
     expect(calls[0].init.headers).toMatchObject({
-      'HTTP-Referer': 'https://github.com/MJHax/OpenChat', 'X-OpenRouter-Title': 'OpenChat', 'X-Title': 'OpenChat',
+      'HTTP-Referer': 'https://github.com/MJHax/Pinion', 'X-OpenRouter-Title': 'Pinion', 'X-Title': 'Pinion',
     });
   });
 

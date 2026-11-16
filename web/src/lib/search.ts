@@ -1,6 +1,6 @@
 import type { SearchServiceId, Source } from '../../../shared/types';
 
-export const searchKey = (chatId: string) => `openchat.search.${chatId}`;
+export const searchKey = (chatId: string) => `pinion.search.${chatId}`;
 
 /** Whether web search is on for a chat; off when never set or when storage is unavailable. */
 export function loadSearch(chatId: string): boolean {

@@ -11,7 +11,7 @@ export const PENDING_TTL_MS = 24 * 60 * 60 * 1000;
 
 const KIND_LABEL: Record<AttachmentKind, string> = { image: 'image', pdf: 'PDF', text: 'text' };
 
-export const UNSUPPORTED_TYPE = "OpenChat can't read this file type yet. Images, PDFs and text files work.";
+export const UNSUPPORTED_TYPE = "Pinion can't read this file type yet. Images, PDFs and text files work.";
 export const BAD_ATTACHMENT = 'One of the attachments is no longer available. Remove it and attach it again.';
 export const TOO_MANY_FILES = `You can attach up to ${MAX_ATTACHMENTS} files.`;
 export const TOO_MUCH_TOTAL = 'These files add up to more than 30 MB. Remove some and try again.';

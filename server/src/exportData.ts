@@ -27,7 +27,7 @@ const encode = (path: string) => path.split('/').map(encodeURIComponent).join('/
 /** One thread as Markdown: the conversation as it is shown (the active branch), with links to its files. */
 export function threadMarkdown(chat: ChatRow, all: Message[], hasClip: (messageId: string) => boolean): string {
   const path = activePath(all, chat.active_leaf_id);
-  const lines = [`# ${chat.title}`, '', `Exported from OpenChat. Started ${when(chat.created_at)}.`];
+  const lines = [`# ${chat.title}`, '', `Exported from Pinion. Started ${when(chat.created_at)}.`];
   if (all.length > path.length) lines.push('', `${all.length - path.length} message(s) on other branches are in data.json.`);
   for (const m of path) {
     const who = m.role === 'user' ? 'You' : `Assistant${m.modelId ? ` (${m.modelId})` : ''}`;
@@ -44,7 +44,7 @@ export function threadMarkdown(chat: ChatRow, all: Message[], hasClip: (messageI
 
 /** One discussion as Markdown: who said what, in order, then the summary if there is one. */
 export function discussionMarkdown(d: DiscussionDetail): string {
-  const lines = [`# ${d.chat.title}`, '', `Exported from OpenChat. Topic: "${d.topic}".`, '', '## Participants', ''];
+  const lines = [`# ${d.chat.title}`, '', `Exported from Pinion. Topic: "${d.topic}".`, '', '## Participants', ''];
   for (const p of d.participants) lines.push(`- **${p.name}**${p.isModerator ? ' (moderator)' : ''}: ${p.modelId}`);
   lines.push('', '## Transcript');
   for (const m of d.messages) {

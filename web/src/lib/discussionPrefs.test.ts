@@ -35,14 +35,14 @@ describe('discussion preferences', () => {
 
   it('falls back to defaults for invalid JSON', () => {
     const s = memoryStorage();
-    s.setItem('openchat.discussionPrefs', '{nope');
+    s.setItem('pinion.discussionPrefs', '{nope');
     use(s);
     expect(loadDiscussionPrefs()).toEqual(DEFAULT_DISCUSSION_PREFS);
   });
 
   it('falls back per field for unknown values', () => {
     const s = memoryStorage();
-    s.setItem('openchat.discussionPrefs', JSON.stringify({ reveal: 'slow', waitForMe: 'yes' }));
+    s.setItem('pinion.discussionPrefs', JSON.stringify({ reveal: 'slow', waitForMe: 'yes' }));
     use(s);
     expect(loadDiscussionPrefs()).toEqual(DEFAULT_DISCUSSION_PREFS);
   });

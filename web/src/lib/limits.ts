@@ -1,7 +1,7 @@
 import { WARN_AT } from '../../../shared/limits';
 import type { LimitPeriod, LimitStatus } from '../../../shared/types';
 
-const storageKey = (period: LimitPeriod) => `openchat.limits.dismissed.${period}`;
+const storageKey = (period: LimitPeriod) => `pinion.limits.dismissed.${period}`;
 
 /** The start of the period whose notice was dismissed, or null. */
 export function loadDismissed(period: LimitPeriod): number | null {

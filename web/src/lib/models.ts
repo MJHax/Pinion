@@ -59,7 +59,7 @@ export const sortMediaLibrary = (models: MediaLibraryModel[], sort: LibrarySort)
   sortBy(models, sort, (m) => m.displayName, mediaCost);
 
 /** Chat, image and video models each keep their own order. */
-const sortKey = (kind: 'chat' | MediaKind) => (kind === 'chat' ? 'openchat.librarySort' : `openchat.librarySort.${kind}`);
+const sortKey = (kind: 'chat' | MediaKind) => (kind === 'chat' ? 'pinion.librarySort' : `pinion.librarySort.${kind}`);
 
 export function loadLibrarySort(kind: 'chat' | MediaKind = 'chat'): LibrarySort {
   try {

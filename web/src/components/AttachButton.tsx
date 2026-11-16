@@ -5,7 +5,7 @@ import { usePopover } from './usePopover';
 
 /**
  * Paperclip with a small menu: "From this computer" (the system file picker) or "From my chats" (images and files
- * OpenChat made). Without `onAttachments` it opens the file picker directly.
+ * Pinion made). Without `onAttachments` it opens the file picker directly.
  */
 export function AttachButton({ onFiles, onAttachments }: { onFiles(files: File[]): void; onAttachments?(list: Attachment[]): void }) {
   const input = useRef<HTMLInputElement>(null);

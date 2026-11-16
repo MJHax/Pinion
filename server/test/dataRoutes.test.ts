@@ -121,7 +121,7 @@ describe('deletes', () => {
     expect(existsSync(join(deps.mediaDir, `${video.reply.id}.mp4`))).toBe(true);
   });
 
-  it('delete all my data returns OpenChat to a fresh install', async () => {
+  it('delete all my data returns Pinion to a fresh install', async () => {
     const { call, db, deps } = await seed();
     db.prepare("INSERT INTO models (id, display_name, added_at) VALUES ('m/a', 'A', 1)").run();
     db.prepare("INSERT INTO media_models (id, kind, display_name, added_at) VALUES ('i/a', 'image', 'I', 1)").run();

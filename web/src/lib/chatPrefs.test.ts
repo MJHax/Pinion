@@ -26,9 +26,9 @@ describe('forgetChatPrefs', () => {
       saveCompare(id, { enabled: true, modelIds: ['x', 'y'] });
       saveSearch(id, true);
     }
-    storage.setItem('openchat.theme', 'dark');
+    storage.setItem('pinion.theme', 'dark');
     forgetChatPrefs(['a', 'c']);
-    expect([...Array(storage.length).keys()].map((i) => storage.key(i)).sort()).toEqual(['openchat.compare.b', 'openchat.search.b', 'openchat.theme']);
+    expect([...Array(storage.length).keys()].map((i) => storage.key(i)).sort()).toEqual(['pinion.compare.b', 'pinion.search.b', 'pinion.theme']);
   });
 
   it('does nothing when storage is unavailable', () => {

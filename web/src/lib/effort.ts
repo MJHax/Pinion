@@ -1,8 +1,8 @@
 import { EFFORTS, type Effort } from '../../../shared/types';
 
-export const effortKey = (chatId: string) => `openchat.effort.${chatId}`;
+export const effortKey = (chatId: string) => `pinion.effort.${chatId}`;
 /** The last effort picked anywhere, which a new chat starts with. */
-const LAST_KEY = 'openchat.effort.last';
+const LAST_KEY = 'pinion.effort.last';
 
 const parse = (raw: string | null): Effort | null => (EFFORTS.includes(raw as Effort) ? (raw as Effort) : null);
 

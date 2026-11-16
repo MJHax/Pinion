@@ -8,7 +8,7 @@ export const RANGES: { id: StatsRange; label: string }[] = [
   { id: 'today', label: 'Today' },
 ];
 
-const RANGE_KEY = 'openchat.stats.range';
+const RANGE_KEY = 'pinion.stats.range';
 
 export function loadRange(): StatsRange {
   try {

@@ -152,7 +152,7 @@ describe('video jobs', () => {
     const s = setup();
     const id = await s.thread();
     const { assistantMessageId } = (await (await s.start(id)).json()) as { assistantMessageId: string };
-    s.advance(3 * 60 * MIN); // OpenChat was off for three hours
+    s.advance(3 * 60 * MIN); // Pinion was off for three hours
     s.job.status = 'completed';
     const fresh = s.poller();
     await fresh.tick();

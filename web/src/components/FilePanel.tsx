@@ -79,7 +79,7 @@ export function FilePanel({ name, versions, initialVersion, adhoc, images, onDow
           <button className="link" onClick={() => setCode(!code)}>{code ? 'Preview' : 'Code'}</button>
         )}
         {kind === 'html' && !showCode && (
-          <button className="link" onClick={() => frame.current?.contentWindow?.postMessage('openchat:print', '*')}>Print / Save as PDF</button>
+          <button className="link" onClick={() => frame.current?.contentWindow?.postMessage('pinion:print', '*')}>Print / Save as PDF</button>
         )}
         <button className="link" onClick={() => onDownload(file)}>Download</button>
         <button className="icon" onClick={onClose} aria-label="Close file" title="Close"><X size={16} /></button>

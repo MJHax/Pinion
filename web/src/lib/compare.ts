@@ -6,7 +6,7 @@ export interface CompareState {
 export const COMPARE_OFF: CompareState = { enabled: false, modelIds: [] };
 export const MAX_COMPARE = 4;
 
-export const compareKey = (chatId: string) => `openchat.compare.${chatId}`;
+export const compareKey = (chatId: string) => `pinion.compare.${chatId}`;
 
 export function parseCompareState(raw: string | null): CompareState {
   try {

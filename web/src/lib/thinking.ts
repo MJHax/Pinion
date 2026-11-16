@@ -1,6 +1,6 @@
-export const thinkingKey = (chatId: string) => `openchat.thinking.${chatId}`;
+export const thinkingKey = (chatId: string) => `pinion.thinking.${chatId}`;
 /** The last choice made anywhere, which a new chat starts with. */
-const LAST_KEY = 'openchat.thinking.last';
+const LAST_KEY = 'pinion.thinking.last';
 
 /** Whether a local reasoning model thinks before answering; on unless turned off. A new chat takes the last choice. */
 export function loadThinking(chatId: string | null): boolean {

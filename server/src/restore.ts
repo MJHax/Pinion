@@ -11,11 +11,11 @@ import { HttpError } from './http';
 import { failInterruptedGenerations } from './imageGen';
 import { extractEntry, readZipIndex, ZipError, type ZipFileEntry } from './unzip';
 
-const NOT_A_BACKUP = "This isn't an OpenChat backup. Use a .zip made by Export in OpenChat.";
-const NEWER = 'This backup was made by a newer version of OpenChat. Update this OpenChat first.';
+const NOT_A_BACKUP = "This isn't a Pinion backup. Use a .zip made by Export in Pinion.";
+const NEWER = 'This backup was made by a newer version of Pinion. Update this Pinion first.';
 const DAMAGED = 'The backup file is damaged or incomplete. Export it again and retry.';
-const INTERRUPTED_CLIP = 'Interrupted by a restore. The clip may still finish on the OpenChat this backup came from.';
-const SWAP_FAILED = "Couldn't move the backup's clips into place. Nothing was changed. Close anything using OpenChat's video files and try again.";
+const INTERRUPTED_CLIP = 'Interrupted by a restore. The clip may still finish on the Pinion this backup came from.';
+const SWAP_FAILED = "Couldn't move the backup's clips into place. Nothing was changed. Close anything using Pinion's video files and try again.";
 const CLIP_NAME = /^[0-9a-f-]{36}\.mp4$/;
 
 // One import at a time: a second would share the staging folder and replace data under the first.

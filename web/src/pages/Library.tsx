@@ -16,7 +16,7 @@ const SECTIONS: { id: Section; title: string; empty: string }[] = [
 
 const countLabel = (n: number) => `${n} ${n === 1 ? 'file' : 'files'}`;
 
-/** Every file the user uploaded and every file OpenChat made, to download, reuse in a new chat, or trace back to its chats. */
+/** Every file the user uploaded and every file Pinion made, to download, reuse in a new chat, or trace back to its chats. */
 export function Library({ onReuse }: { onReuse(d: ReuseDraft): void }) {
   const [lib, setLib] = useState<LibraryResponse | null>(null);
   const [error, setError] = useState<string | null>(null);

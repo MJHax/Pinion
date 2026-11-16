@@ -77,7 +77,7 @@ function ConfirmDelete({ target, view, onClose, onDone }: {
         <h3 id="confirm-delete-title">{info ? info.title : 'Delete all my data?'}</h3>
         {info ? <p>{info.body}</p> : (
           <>
-            <p>This puts OpenChat back to a fresh install. It deletes:</p>
+            <p>This puts Pinion back to a fresh install. It deletes:</p>
             <ul className="small">
               <li>every chat, image and video, with all their files</li>
               <li>memories, saved prompts, About me and custom instructions</li>
@@ -86,7 +86,7 @@ function ConfirmDelete({ target, view, onClose, onDone }: {
               <li><strong>stats and cost history</strong></li>
             </ul>
             {view.apiKeySource === 'env' && (
-              <p className="small">Your API key comes from the <code>.env</code> file, which OpenChat doesn't own, so it stays. Remove it from that file yourself if you want it gone.</p>
+              <p className="small">Your API key comes from the <code>.env</code> file, which Pinion doesn't own, so it stays. Remove it from that file yourself if you want it gone.</p>
             )}
           </>
         )}
@@ -219,7 +219,7 @@ export function DataTab({ view, onDeleted }: DataTabProps) {
       <h2>Import</h2>
       <div className="card">
         <div className="muted small">
-          Replace everything in this OpenChat with a backup made by Export. Your API keys aren't in backups, so this OpenChat keeps its own.
+          Replace everything in this Pinion with a backup made by Export. Your API keys aren't in backups, so this Pinion keeps its own.
         </div>
         <div className="row" style={{ justifyContent: 'flex-start' }}>
           <input ref={fileInput} type="file" accept=".zip,application/zip" hidden
@@ -241,7 +241,7 @@ export function DataTab({ view, onDeleted }: DataTabProps) {
       <div className="card danger-zone">
         <div className="row data-delete-row">
           <span className="small">
-            <strong>Delete all my data.</strong> Everything goes, including stats and cost history: OpenChat is back to a fresh install.
+            <strong>Delete all my data.</strong> Everything goes, including stats and cost history: Pinion is back to a fresh install.
           </span>
           <button className="danger-button" onClick={() => { setNote(null); setConfirming('all'); }}>Delete all my data…</button>
         </div>

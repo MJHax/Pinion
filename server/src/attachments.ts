@@ -43,7 +43,7 @@ const IMAGE_SIGNATURES: { mime: string; test(b: Uint8Array): boolean }[] = [
 
 const BOM = [0xef, 0xbb, 0xbf];
 
-/** Decides what a file is from its bytes alone; null for empty files and anything OpenChat can't read. */
+/** Decides what a file is from its bytes alone; null for empty files and anything Pinion can't read. */
 export function detectKind(bytes: Uint8Array): { kind: AttachmentKind; mime: string; bytes: Uint8Array } | null {
   if (bytes.length === 0) return null;
   const image = IMAGE_SIGNATURES.find((s) => s.test(bytes));
@@ -173,7 +173,7 @@ export function insertGenerated(db: DB, a: { messageId: string; filename: string
   return { id, kind: a.kind, filename: a.filename, mime: a.mime, size: a.data.length };
 }
 
-/** Everything OpenChat made that can be attached to a chat: images from image threads, and each chat's latest files. */
+/** Everything Pinion made that can be attached to a chat: images from image threads, and each chat's latest files. */
 export function generatedItems(db: DB): GeneratedItems {
   const images = db.prepare(
     `SELECT a.id AS attachmentId, c.id AS threadId, c.title AS threadTitle, a.created_at AS createdAt

@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Technical notes for anyone (human or AI agent) working on the OpenChat code. User-facing setup lives in [README.md](README.md).
+Technical notes for anyone (human or AI agent) working on the Pinion code. User-facing setup lives in [README.md](README.md).
 
 ## What it is
 
@@ -26,7 +26,7 @@ flowchart LR
 - **Web app** (`web/`): React 19 and [Vite](https://vite.dev).
 - **Shared types** (`shared/`): used by both server and web app.
 - **Provider layer:** every chat feature goes through one interface, and each model id decides whether a request goes to OpenRouter or to a local server. Adding another kind of server means writing one client.
-- **Data:** everything lives in one SQLite file (`data/openchat.db` by default).
+- **Data:** everything lives in one SQLite file (`data/pinion.db` by default). An install from before the rename has `data/openchat.db`; `server/src/dbPath.ts` moves it on first start.
 - **Privacy rule:** chats that only used local models are never sent to OpenRouter, not even to write their title. Keep it that way.
 
 ## Local servers
@@ -37,7 +37,7 @@ flowchart LR
 | LM Studio | Automatic at `http://localhost:1234` |
 | Any OpenAI-compatible server (llama.cpp, vLLM, …) | Added in **Settings → General → Local servers** |
 
-Each local model has its own context window setting (16,384 tokens by default). OpenChat sends it to Ollama on every request and asks before sending a chat that no longer fits. LM Studio support follows its documented API but has had less testing than Ollama.
+Each local model has its own context window setting (16,384 tokens by default). Pinion sends it to Ollama on every request and asks before sending a chat that no longer fits. LM Studio support follows its documented API but has had less testing than Ollama.
 
 ## Configuration
 
@@ -46,13 +46,15 @@ Settings are made in the app. A `.env` file (see `.env.example`) can also set:
 | Variable | Default | Purpose |
 |---|---|---|
 | `OPENROUTER_API_KEY` | none | OpenRouter key, used when none is saved in Settings |
-| `OPENCHAT_PORT` | `3000` | Port the app listens on |
-| `OPENCHAT_HOST` | `127.0.0.1` | Address to listen on; `0.0.0.0` lets other machines connect (the Docker image sets this) |
-| `OPENCHAT_ALLOWED_HOSTS` | none | Names besides `localhost` and IP addresses that OpenChat answers on, comma-separated, e.g. `homelab.local` |
-| `OPENCHAT_DETECT_HOST` | `localhost` | Machine to look for Ollama and LM Studio on (`host.docker.internal` in Docker) |
-| `OPENCHAT_DB` | `data/openchat.db` | Location of the SQLite database |
+| `PINION_PORT` | `3000` | Port the app listens on |
+| `PINION_HOST` | `127.0.0.1` | Address to listen on; `0.0.0.0` lets other machines connect (the Docker image sets this) |
+| `PINION_ALLOWED_HOSTS` | none | Names besides `localhost` and IP addresses that Pinion answers on, comma-separated, e.g. `homelab.local` |
+| `PINION_DETECT_HOST` | `localhost` | Machine to look for Ollama and LM Studio on (`host.docker.internal` in Docker) |
+| `PINION_DB` | `data/pinion.db` | Location of the SQLite database |
 
-Other host names are refused to block DNS rebinding attacks. OpenChat has no login; see [SECURITY.md](SECURITY.md).
+Each setting is also read under its name from before the rename (`OPENCHAT_PORT` and so on) when the `PINION_` one is not set.
+
+Other host names are refused to block DNS rebinding attacks. Pinion has no login; see [SECURITY.md](SECURITY.md).
 
 SearXNG needs JSON output enabled in its `settings.yml` (the connection test in Settings explains how).
 
@@ -72,7 +74,7 @@ npm run fake-search                                  # a fake search server
 npm run screenshots  # retake docs/screenshots/chat.png and compare.png (needs Chrome or Edge, and Ollama stopped)
 ```
 
-`npm run screenshots` runs OpenChat on a throwaway database with a fake Ollama on port 11434, sets up both chats through the API, and captures them in dark mode with headless Chrome. The scenes and replies are in `scripts/readme-screenshots.ts`. The Discussion GIF (`docs/screenshots/discussion.gif`) is a screen recording and isn't made by this script.
+`npm run screenshots` runs Pinion on a throwaway database with a fake Ollama on port 11434, sets up both chats through the API, and captures them in dark mode with headless Chrome. The scenes and replies are in `scripts/readme-screenshots.ts`. The Discussion GIF (`docs/screenshots/discussion.gif`) is a screen recording and isn't made by this script.
 
 `npm start` builds the web app only when it is stale (`scripts/build-if-stale.mjs`), then serves it from the Hono server on port 3000.
 
@@ -82,7 +84,7 @@ npm run screenshots  # retake docs/screenshots/chat.png and compare.png (needs C
 
 ## Process
 
-OpenChat was built by directing an AI coding agent ([Claude Code](https://claude.com/claude-code)): each feature started as a design spec, became a step-by-step plan, and was built task by task with a review of each task and a final review of the whole change. Specs and plans are in [`docs/superpowers`](docs/superpowers). Follow the same pattern for new features.
+Pinion was built by directing an AI coding agent ([Claude Code](https://claude.com/claude-code)): each feature started as a design spec, became a step-by-step plan, and was built task by task with a review of each task and a final review of the whole change. Specs and plans are in [`docs/superpowers`](docs/superpowers). Follow the same pattern for new features.
 
 ## Brand assets
 

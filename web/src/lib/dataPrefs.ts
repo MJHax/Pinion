@@ -1,5 +1,5 @@
 // Per-chat settings the browser keeps (web/src/lib/compare.ts, web/src/lib/search.ts, web/src/lib/effort.ts).
-const PER_CHAT = ['openchat.compare.', 'openchat.search.', 'openchat.effort.'];
+const PER_CHAT = ['pinion.compare.', 'pinion.search.', 'pinion.effort.'];
 
 function keys(): string[] {
   const out: string[] = [];
@@ -19,10 +19,10 @@ export function forgetChatPrefs(chatIds: string[]): void {
   }
 }
 
-/** Forgets everything OpenChat kept in this browser, for "Delete all my data". */
+/** Forgets everything Pinion kept in this browser, for "Delete all my data". */
 export function forgetAllPrefs(): void {
   try {
-    for (const k of keys()) if (k.startsWith('openchat.')) localStorage.removeItem(k);
+    for (const k of keys()) if (k.startsWith('pinion.')) localStorage.removeItem(k);
   } catch {
     // storage unavailable (private window); nothing was stored either
   }

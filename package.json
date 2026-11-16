@@ -1,16 +1,16 @@
 {
-  "name": "openchat",
+  "name": "pinion",
   "version": "0.1.0",
   "description": "A self-hosted chat app for OpenRouter and your own local models (Ollama, LM Studio).",
   "private": true,
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MJHax/OpenChat.git"
+    "url": "git+https://github.com/MJHax/Pinion.git"
   },
-  "homepage": "https://github.com/MJHax/OpenChat#readme",
+  "homepage": "https://github.com/MJHax/Pinion#readme",
   "bugs": {
-    "url": "https://github.com/MJHax/OpenChat/issues"
+    "url": "https://github.com/MJHax/Pinion/issues"
   },
   "keywords": [
     "chat",

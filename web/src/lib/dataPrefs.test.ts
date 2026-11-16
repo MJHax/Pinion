@@ -21,15 +21,15 @@ const stored = () => Object.keys(Object.fromEntries([...Array(localStorage.lengt
 describe('forgetting browser prefs', () => {
   it('removes the per-chat keys of deleted chats only', () => {
     (globalThis as { localStorage?: Storage }).localStorage = memoryStorage({
-      'openchat.compare.a': '{}', 'openchat.search.a': '1', 'openchat.compare.b': '{}', 'openchat.stats.range': 'week',
+      'pinion.compare.a': '{}', 'pinion.search.a': '1', 'pinion.compare.b': '{}', 'pinion.stats.range': 'week',
     });
     forgetChatPrefs(['a']);
-    expect(stored()).toEqual(['openchat.compare.b', 'openchat.stats.range']);
+    expect(stored()).toEqual(['pinion.compare.b', 'pinion.stats.range']);
   });
 
-  it('removes every OpenChat key on a full reset and leaves other sites alone', () => {
+  it('removes every Pinion key on a full reset and leaves other sites alone', () => {
     (globalThis as { localStorage?: Storage }).localStorage = memoryStorage({
-      'openchat.compare.a': '{}', 'openchat.images.model': 'x', 'other.thing': '1',
+      'pinion.compare.a': '{}', 'pinion.images.model': 'x', 'other.thing': '1',
     });
     forgetAllPrefs();
     expect(stored()).toEqual(['other.thing']);

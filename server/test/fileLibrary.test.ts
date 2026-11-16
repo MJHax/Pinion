@@ -17,7 +17,7 @@ const file = (name: string, body: string) => `<file name="${name}">\n${body}\n</
 
 function setup() {
   const db = openDb(':memory:');
-  const mediaDir = mkdtempSync(join(tmpdir(), 'openchat-lib-'));
+  const mediaDir = mkdtempSync(join(tmpdir(), 'pinion-lib-'));
   return { db, mediaDir };
 }
 

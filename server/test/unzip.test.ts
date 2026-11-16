@@ -9,7 +9,7 @@ async function zipFile(entries: ZipEntry[], opts: { max32?: number } = {}): Prom
   const chunks: Uint8Array[] = [];
   for await (const c of zipStream(entries, opts)) chunks.push(c);
   const bytes = Buffer.concat(chunks);
-  const dir = mkdtempSync(join(tmpdir(), 'openchat-unzip-'));
+  const dir = mkdtempSync(join(tmpdir(), 'pinion-unzip-'));
   const file = join(dir, 'test.zip');
   writeFileSync(file, bytes);
   return { dir, file, bytes };

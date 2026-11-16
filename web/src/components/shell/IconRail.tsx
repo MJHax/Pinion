@@ -45,7 +45,7 @@ export function IconRail({ active, mode, resolvedTheme, onToggleTheme, onToggleP
 
   return (
     <nav className="rail" ref={rail} aria-label="Main">
-      <a className="rail-logo" href="#/" aria-label="OpenChat home"><Logo /></a>
+      <a className="rail-logo" href="#/" aria-label="Pinion home"><Logo /></a>
       {top !== null && <span className="rail-ind" style={{ top }} aria-hidden />}
       {MODES.map(({ id, label, Icon }) => item(id, label, Icon, () => (id === mode && active === id ? onTogglePanel() : navigate(threadHome(id)))))}
       <span className="rail-sep" />

@@ -17,7 +17,7 @@ const fileHas = (file: string, text: string) => existsSync(file) && readFileSync
 
 describe('real deletion', () => {
   it('leaves no trace of a deleted chat in the database file, its WAL or the search index', async () => {
-    const file = join(mkdtempSync(join(tmpdir(), 'openchat-del-')), 'openchat.db');
+    const file = join(mkdtempSync(join(tmpdir(), 'pinion-del-')), 'pinion.db');
     const { db, call } = makeApp({}, undefined, file);
     const chat = (await (await call('POST', '/api/chats')).json()) as ChatSummary;
     // Enough text that the message spills onto overflow pages, plus a blob, so both kinds of freed page are covered.

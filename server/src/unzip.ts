@@ -69,7 +69,7 @@ export async function readZipIndex(file: string): Promise<Map<string, ZipFileEnt
         if (size === MAX32) { size = Number(extra.readBigUInt64LE(q)); q += 16; }
         if (offset === MAX32) offset = Number(extra.readBigUInt64LE(q));
       }
-      if (method !== 0) throw new ZipError(`${name} is compressed; only OpenChat's own zips can be read.`);
+      if (method !== 0) throw new ZipError(`${name} is compressed; only Pinion's own zips can be read.`);
       const local = await read(fh, offset, 30, fileSize);
       if (local.readUInt32LE(0) !== 0x04034b50) throw new ZipError('The zip file is damaged.');
       const dataOffset = offset + 30 + local.readUInt16LE(26) + local.readUInt16LE(28);

@@ -67,7 +67,7 @@ function Report({ d, generatedAt, modelName }: { d: DiscussionDetail; generatedA
       <body>
         <h1>{d.topic}</h1>
         <p className="meta">
-          {`OpenChat discussion · ${new Date(generatedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}`}
+          {`Pinion discussion · ${new Date(generatedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}`}
           {` · ${state.turnsTaken} ${state.turnsTaken === 1 ? 'turn' : 'turns'} · ${cost(d.chat.totalCost)} total`}
         </p>
         <table>

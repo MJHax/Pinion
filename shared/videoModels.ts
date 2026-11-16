@@ -124,7 +124,7 @@ export function usd(n: number): string {
 }
 
 export interface VideoPrice {
-  /** null: OpenChat can't work out the price before generating. */
+  /** null: Pinion can't work out the price before generating. */
   cost: number | null;
   estimated: boolean;
   perSecond: number | null;

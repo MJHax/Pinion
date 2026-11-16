@@ -39,9 +39,9 @@ export function ModelCard({ model: m, added, busy, onAdd, onRemove, compact = fa
       {pills.length > 0 && (
         <div className="pills">
           {pills.map((c) => (
-            <span key={c.id} className={`pill${c.usedByOpenChat ? '' : ' unused'}`} title={c.usedByOpenChat ? undefined : UNUSED_HINT}>
+            <span key={c.id} className={`pill${c.usedByPinion ? '' : ' unused'}`} title={c.usedByPinion ? undefined : UNUSED_HINT}>
               {c.label}
-              {!c.usedByOpenChat && <span className="visually-hidden"> ({UNUSED_HINT})</span>}
+              {!c.usedByPinion && <span className="visually-hidden"> ({UNUSED_HINT})</span>}
             </span>
           ))}
         </div>

@@ -7,7 +7,7 @@ export default defineConfig({
   build: {
     outDir: '../dist',
     emptyOutDir: true,
-    // Libraries get their own files, so an update to OpenChat's own code doesn't re-download them.
+    // Libraries get their own files, so an update to Pinion's own code doesn't re-download them.
     rollupOptions: {
       output: {
         manualChunks(id) {

@@ -180,8 +180,8 @@ async function mapLimited<T, R>(items: T[], limit: number, fn: (item: T) => Prom
 }
 
 /** OpenRouter identifies an app by its HTTP-Referer (so not a localhost URL, which every local app shares) and shows its title. */
-const APP_URL = 'https://github.com/MJHax/OpenChat';
-const APP_TITLE = 'OpenChat';
+const APP_URL = 'https://github.com/MJHax/Pinion';
+const APP_TITLE = 'Pinion';
 
 export function createOpenRouterClient(fetchImpl: typeof fetch = fetch, base = OPENROUTER_BASE): OpenRouterClient {
   async function request(path: string, init: RequestInit & { apiKey?: string } = {}): Promise<Response> {

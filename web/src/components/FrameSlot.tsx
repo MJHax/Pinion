@@ -17,7 +17,7 @@ interface Props {
   onError(message: string): void;
 }
 
-/** A start or end photo for a clip: from this computer, or an image OpenChat made. */
+/** A start or end photo for a clip: from this computer, or an image Pinion made. */
 export function FrameSlot({ label, photo, onPhoto, onAspect, disabledReason, onError }: Props) {
   const input = useRef<HTMLInputElement>(null);
   const { open, setOpen, root } = usePopover();

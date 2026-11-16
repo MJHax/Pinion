@@ -42,7 +42,7 @@ function CodeBlock({ node: _node, children, ...props }: ComponentProps<'pre'> & 
   );
 }
 
-/** Links open in a new tab so following one never navigates away from OpenChat. */
+/** Links open in a new tab so following one never navigates away from Pinion. */
 function Link({ node: _node, ...props }: ComponentProps<'a'> & { node?: unknown }) {
   return <a {...props} target="_blank" rel="noopener noreferrer" />;
 }

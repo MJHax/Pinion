@@ -10,7 +10,7 @@ export interface Appearance {
 }
 
 /** Read by the inline script in web/index.html too: keep the two in step. */
-export const APPEARANCE_KEY = 'openchat.appearance';
+export const APPEARANCE_KEY = 'pinion.appearance';
 
 export const DEFAULT_APPEARANCE: Appearance = { theme: 'system', accent: 'blue', colorStyle: 'vivid', animations: true, tiltCards: true };
 

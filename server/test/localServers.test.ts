@@ -118,7 +118,7 @@ describe('local server storage', () => {
   });
 
   it('migrates a database without the new columns', () => {
-    const file = join(mkdtempSync(join(tmpdir(), 'openchat-')), 'old.db');
+    const file = join(mkdtempSync(join(tmpdir(), 'pinion-')), 'old.db');
     const old = new Database(file);
     old.exec('CREATE TABLE models (id TEXT PRIMARY KEY, display_name TEXT NOT NULL, context_length INTEGER, prompt_price REAL, completion_price REAL, added_at INTEGER NOT NULL)');
     old.close();

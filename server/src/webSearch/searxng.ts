@@ -37,7 +37,7 @@ export function createSearxng(baseUrl: string, fetchImpl: typeof fetch = fetch, 
     name: 'SearXNG',
     search: run,
     async test() {
-      await run('openchat');
+      await run('pinion');
     },
   };
 }

@@ -70,7 +70,7 @@ describe('inlineImages', () => {
 });
 
 describe('svgDataUrl', () => {
-  it('is a data: URL, which a browser will not open as a top-level page in OpenChat\'s origin', () => {
+  it('is a data: URL, which a browser will not open as a top-level page in Pinion\'s origin', () => {
     const url = svgDataUrl('<svg xmlns="http://www.w3.org/2000/svg"><text>é</text></svg>');
     expect(url.startsWith('data:image/svg+xml;charset=utf-8,')).toBe(true);
     expect(decodeURIComponent(url.slice(url.indexOf(',') + 1))).toBe('<svg xmlns="http://www.w3.org/2000/svg"><text>é</text></svg>');

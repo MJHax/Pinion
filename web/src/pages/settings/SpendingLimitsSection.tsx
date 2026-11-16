@@ -44,7 +44,7 @@ export function SpendingLimitsSection({ limits, update }: { limits: SpendingLimi
       <h2 id="limits">Spending limits</h2>
       <div className="card">
         <div className="muted small">
-          Stop new requests once OpenChat has spent this much: chat replies, comparisons, titles, memory suggestions, images and
+          Stop new requests once Pinion has spent this much: chat replies, comparisons, titles, memory suggestions, images and
           videos. Anything already running finishes. Periods follow the calendar in your time zone ({browserZone()}): the day from
           midnight, the week from Monday, the month from the 1st, so they won't match the Stats page's rolling Week and Month.
         </div>

@@ -56,9 +56,9 @@ describe('SearXNG', () => {
     await expect(s.search('x')).rejects.toBeInstanceOf(SearchError);
   });
 
-  it('test() searches for openchat', async () => {
+  it('test() searches for pinion', async () => {
     await createSearxng(fake.url).test();
-    expect(fake.requests[0].query.q).toBe('openchat');
+    expect(fake.requests[0].query.q).toBe('pinion');
   });
 
   it('says so when the server is not running', async () => {

@@ -2,7 +2,7 @@ import { safeFileName } from '../../../shared/files';
 
 /**
  * The policy every generated page runs under. The iframe already has a null origin; this keeps the page from talking
- * to OpenChat's API (or anything else) while still letting it load scripts, styles, fonts and images from CDNs.
+ * to Pinion's API (or anything else) while still letting it load scripts, styles, fonts and images from CDNs.
  */
 export const PANEL_CSP = [
   "default-src 'none'",
@@ -16,7 +16,7 @@ export const PANEL_CSP = [
 ].join('; ');
 
 /** Lets the panel's Print button print the page from outside the sandbox. */
-export const PRINT_LISTENER = "<script>addEventListener('message',function(e){if(e.data==='openchat:print')print()})</script>";
+export const PRINT_LISTENER = "<script>addEventListener('message',function(e){if(e.data==='pinion:print')print()})</script>";
 
 const escapeRegExp = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
@@ -46,7 +46,7 @@ export function prepareHtml(html: string, images: Map<string, string>): string {
 }
 
 /**
- * An SVG as an image URL. Not a blob: URL, which has OpenChat's origin, so "Open image in new tab" would run the SVG's
+ * An SVG as an image URL. Not a blob: URL, which has Pinion's origin, so "Open image in new tab" would run the SVG's
  * scripts with access to the API; browsers refuse to open data: URLs as top-level pages.
  */
 export const svgDataUrl = (svg: string): string => `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;

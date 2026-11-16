@@ -43,7 +43,7 @@ describe('backup in the export', () => {
   it('the database copy holds the data', async () => {
     const { call, chatId } = await seed();
     const files = readZip(await exportZip(call));
-    const file = join(mkdtempSync(join(tmpdir(), 'openchat-test-')), 'copy.db');
+    const file = join(mkdtempSync(join(tmpdir(), 'pinion-test-')), 'copy.db');
     writeFileSync(file, files.get('pinion-export/backup/pinion.db')!);
     const copy = new Database(file, { readonly: true });
     expect((copy.prepare('SELECT id FROM chats').all() as { id: string }[]).map((r) => r.id)).toEqual([chatId]);
@@ -61,7 +61,7 @@ describe('backup in the export', () => {
 
   it('leaves no temp files behind', async () => {
     const { deps } = await seed();
-    const work = mkdtempSync(join(tmpdir(), 'openchat-work-'));
+    const work = mkdtempSync(join(tmpdir(), 'pinion-work-'));
     for await (const _ of zipStream(backupEntries(deps, work))) { /* drain */ }
     expect(readdirSync(work)).toEqual([]);
   });

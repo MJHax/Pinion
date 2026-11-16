@@ -4,16 +4,16 @@ export const providerOf = (id: string): string => id.replace(/^~/, '').split('/'
 
 export type Capability = 'reasoning' | 'free' | 'longContext' | 'vision' | 'tools' | 'file';
 
-export const CAPABILITIES: { id: Capability; label: string; usedByOpenChat: boolean }[] = [
-  { id: 'reasoning', label: 'Reasoning', usedByOpenChat: true },
-  { id: 'free', label: 'Free', usedByOpenChat: true },
-  { id: 'longContext', label: 'Long context', usedByOpenChat: true },
-  { id: 'vision', label: 'Vision', usedByOpenChat: true },
-  { id: 'tools', label: 'Tools', usedByOpenChat: true },
-  { id: 'file', label: 'File input', usedByOpenChat: true },
+export const CAPABILITIES: { id: Capability; label: string; usedByPinion: boolean }[] = [
+  { id: 'reasoning', label: 'Reasoning', usedByPinion: true },
+  { id: 'free', label: 'Free', usedByPinion: true },
+  { id: 'longContext', label: 'Long context', usedByPinion: true },
+  { id: 'vision', label: 'Vision', usedByPinion: true },
+  { id: 'tools', label: 'Tools', usedByPinion: true },
+  { id: 'file', label: 'File input', usedByPinion: true },
 ];
 
-export const UNUSED_HINT = 'Not used by OpenChat yet';
+export const UNUSED_HINT = 'Not used by Pinion yet';
 export const LONG_CONTEXT = 200_000;
 
 const HAS: Record<Capability, (m: CatalogModel) => boolean> = {

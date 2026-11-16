@@ -1,6 +1,6 @@
 // Retakes the README screenshots (docs/screenshots/chat.png and compare.png) in dark mode: `npm run screenshots`.
 //
-// Runs OpenChat on a throwaway database with a fake Ollama serving fixed replies, sets the scenes up through the API,
+// Runs Pinion on a throwaway database with a fake Ollama serving fixed replies, sets the scenes up through the API,
 // then captures each chat with headless Chrome at 1280 px wide and 2x scale. Your own data is never touched.
 // Needs Google Chrome or Microsoft Edge (or CHROME_PATH), and port 11434 free: stop Ollama first if it is running.
 import { spawn, spawnSync, type ChildProcess } from 'node:child_process';
@@ -127,15 +127,15 @@ async function main() {
   fake.reply({ text: words(GEMMA), completionTokens: 261, evalMs: 6070, promptTokens: 30 }, { model: 'gemma3:12b' });
   fake.reply({ text: words(LLAMA), completionTokens: 246, evalMs: 1783, promptTokens: 30 }, { model: 'llama3.2:3b' });
 
-  const tmp = mkdtempSync(join(tmpdir(), 'openchat-screens-'));
+  const tmp = mkdtempSync(join(tmpdir(), 'pinion-screens-'));
   let server: ChildProcess | undefined;
   try {
     spawnSync(process.execPath, ['scripts/build-if-stale.mjs'], { stdio: 'inherit' });
     server = spawn(process.execPath, ['--import', 'tsx', 'server/src/index.ts'], {
-      env: { ...process.env, PINION_PORT: String(PORT), PINION_HOST: '127.0.0.1', PINION_DB: join(tmp, 'openchat.db'), OPENROUTER_API_KEY: '' },
+      env: { ...process.env, PINION_PORT: String(PORT), PINION_HOST: '127.0.0.1', PINION_DB: join(tmp, 'pinion.db'), OPENROUTER_API_KEY: '' },
       stdio: ['ignore', 'inherit', 'inherit'],
     });
-    await waitFor('the OpenChat server', () => api('GET', '/settings'));
+    await waitFor('the Pinion server', () => api('GET', '/settings'));
     await api('PUT', '/settings', { theme: 'dark' });
 
     const models = await waitFor('the fake Ollama models', async () => {

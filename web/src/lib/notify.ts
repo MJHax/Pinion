@@ -1,6 +1,6 @@
-const ASKED_KEY = 'openchat.video.notifyAsked';
+const ASKED_KEY = 'pinion.video.notifyAsked';
 
-/** Asks once (on the first video Generate) whether OpenChat may show a notification when a clip is done. */
+/** Asks once (on the first video Generate) whether Pinion may show a notification when a clip is done. */
 export function askNotifyPermission(): void {
   try {
     if (typeof Notification === 'undefined' || Notification.permission !== 'default' || localStorage.getItem(ASKED_KEY)) return;

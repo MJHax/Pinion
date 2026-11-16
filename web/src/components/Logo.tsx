@@ -9,7 +9,7 @@ const SPARK_1 = 'M 216 297 Q 216 304 223 304 Q 216 304 216 311 Q 216 304 209 304
 const SPARK_2 = 'M 232 317.5 Q 232 322 236.5 322 Q 232 322 232 326.5 Q 232 322 227.5 322 Q 232 322 232 317.5 Z';
 const STOPS = [0, 0.2, 0.42, 0.64, 0.82, 1];
 
-/** The OpenChat quill. Decorative by default; pass a label when it stands alone. */
+/** The Pinion quill. Decorative by default; pass a label when it stands alone. */
 export function Logo({ size = 30, label }: { size?: number; label?: string }) {
   const id = useId().replace(/[^\w-]/g, '');
   return (

@@ -227,7 +227,7 @@ export function App() {
       <main className="main">
         <div className="aurora" aria-hidden />
         <div className="page-slot" inert={overlayOpen}>
-        {loadError && <div className="banner error">Can't reach the OpenChat server: {loadError}</div>}
+        {loadError && <div className="banner error">Can't reach the Pinion server: {loadError}</div>}
         <Suspense fallback={null}>
         {page.page === 'chat' && (
           <ChatView chatId={page.chatId} title={title} reloadToken={chatReload} models={models} settings={settings} onChatsChanged={refreshChats}

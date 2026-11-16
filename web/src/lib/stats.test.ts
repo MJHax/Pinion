@@ -87,7 +87,7 @@ describe('range memory', () => {
   });
 
   it('ignores junk and missing storage', () => {
-    localStorage.setItem('openchat.stats.range', 'decade');
+    localStorage.setItem('pinion.stats.range', 'decade');
     expect(loadRange()).toBe('all');
     delete (globalThis as { localStorage?: unknown }).localStorage;
     expect(loadRange()).toBe('all');

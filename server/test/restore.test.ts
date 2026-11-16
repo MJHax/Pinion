@@ -22,7 +22,7 @@ import { HttpError } from '../src/http';
 import type { ChatSummary, ThreadKind } from '../../shared/types';
 
 type App = ReturnType<typeof makeApp>;
-const work = () => mkdtempSync(join(tmpdir(), 'openchat-restore-test-'));
+const work = () => mkdtempSync(join(tmpdir(), 'pinion-restore-test-'));
 
 async function thread(app: App, kind: ThreadKind, user: string, reply: string) {
   const id = ((await (await app.call('POST', '/api/chats', { kind })).json()) as ChatSummary).id;
@@ -143,21 +143,21 @@ describe('restoreBackup', () => {
     expect(status(src.video.reply.id)).toBe('error');
     expect(dst.db.prepare('SELECT 1 FROM video_jobs WHERE finished_at IS NULL').get()).toBeUndefined();
     expect((dst.db.prepare('SELECT error FROM media_generations WHERE message_id = ?').get(src.video.reply.id) as { error: string }).error)
-      .toBe('Interrupted by a restore. The clip may still finish on the OpenChat this backup came from.');
+      .toBe('Interrupted by a restore. The clip may still finish on the Pinion this backup came from.');
     expect(dst.db.prepare('SELECT count(*) AS n FROM media_events').get()).toEqual({ n: 0 });
   });
 
   it('refuses an export with no backup inside', async () => {
     const dst = await target();
     const zip = await writeZip(new Map([['pinion-export/data.json', Buffer.from('{}')]]));
-    await expectRefused(dst, zip, /isn't an OpenChat backup/);
+    await expectRefused(dst, zip, /isn't a Pinion backup/);
   });
 
   it('refuses a newer backup', async () => {
     const files = readZip(readFileSync(await exportOf(await source())));
     const name = 'pinion-export/backup/manifest.json';
     files.set(name, Buffer.from(JSON.stringify({ ...JSON.parse(files.get(name)!.toString()), schemaVersion: SCHEMA_VERSION + 1 })));
-    await expectRefused(await target(), await writeZip(files), /Update this OpenChat first/);
+    await expectRefused(await target(), await writeZip(files), /Update this Pinion first/);
   });
 
   it('imports an older backup', async () => {

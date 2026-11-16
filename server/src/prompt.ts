@@ -35,7 +35,7 @@ export interface ChatMessage {
   toolName?: string;
 }
 
-/** OpenRouter's PDF handling; OpenChat always names the engine so the paid OCR default never runs by surprise. */
+/** OpenRouter's PDF handling; Pinion always names the engine so the paid OCR default never runs by surprise. */
 export type Plugin = { id: 'file-parser'; pdf: { engine: 'native' | 'cloudflare-ai' } };
 
 type PathEntry = Pick<Message, 'role' | 'content'> & { attachments?: Attachment[] };
