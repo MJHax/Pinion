@@ -85,7 +85,7 @@ cd Pinion
 docker compose up -d
 ```
 
-Open `http://<server address>:3000` from any device on your network. To update, run `git pull`, then `docker compose up -d --build`.
+Open `http://<server address>:3000` from any device on your network. To update, run `git pull`, then `docker compose up -d --build --remove-orphans`.
 
 > [!WARNING]
 > Pinion has no login. Anyone who can reach it can read your chats and use your OpenRouter credit. Only run it on a network you trust, and never expose it to the internet. See [SECURITY.md](SECURITY.md).
