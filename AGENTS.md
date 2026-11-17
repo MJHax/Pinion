@@ -86,7 +86,7 @@ Pinion was built by directing an AI coding agent ([Claude Code](https://claude.c
 
 ## Brand assets
 
-Logo files are in `docs/brand/` (banner, PNG, light/dark SVGs). Web favicons are in `web/public/`.
+Logo files are in `docs/brand/` (banner, PNG, light/dark SVGs). The banner is drawn by `docs/brand/banner.html`; the command to remake `banner.png` is at the top of that file. Web favicons are in `web/public/`.
 
 ## Roadmap
 
