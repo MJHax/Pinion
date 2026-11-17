@@ -66,7 +66,7 @@ npm start
 
 Open http://127.0.0.1:3000.
 
-To change the port or other startup settings, copy `.env.example` to `.env` and edit it. Settings from before the rename (`OPENCHAT_PORT` and the other `OPENCHAT_*` names) still work.
+To change the port or other startup settings, copy `.env.example` to `.env` and edit it.
 
 ## Add models
 

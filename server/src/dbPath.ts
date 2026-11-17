@@ -5,7 +5,7 @@ import type { Env } from './settings';
 import { envVar } from './env';
 
 /**
- * The database file to open: PINION_DB (or the old OPENCHAT_DB) when set, otherwise data/pinion.db. An install from
+ * The database file to open: PINION_DB when set, otherwise data/pinion.db. An install from
  * before the rename has data/openchat.db instead; that file is moved to the new name once, and only when it is safe.
  */
 export function resolveDbFile(env: Env, dataDir = 'data'): string {

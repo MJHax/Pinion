@@ -52,8 +52,6 @@ Settings are made in the app. A `.env` file (see `.env.example`) can also set:
 | `PINION_DETECT_HOST` | `localhost` | Machine to look for Ollama and LM Studio on (`host.docker.internal` in Docker) |
 | `PINION_DB` | `data/pinion.db` | Location of the SQLite database |
 
-Each setting is also read under its name from before the rename (`OPENCHAT_PORT` and so on) when the `PINION_` one is not set.
-
 Other host names are refused to block DNS rebinding attacks. Pinion has no login; see [SECURITY.md](SECURITY.md).
 
 SearXNG needs JSON output enabled in its `settings.yml` (the connection test in Settings explains how).

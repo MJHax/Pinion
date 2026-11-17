@@ -65,11 +65,6 @@ describe('DNS rebinding protection', () => {
     }
   });
 
-  it('still answers on names in the old OPENCHAT_ALLOWED_HOSTS', async () => {
-    const { app } = makeApp({}, { OPENCHAT_ALLOWED_HOSTS: 'homelab.local' });
-    expect((await at(app, 'homelab.local:3000')).status).toBe(200);
-  });
-
   it('names PINION_ALLOWED_HOSTS when it refuses a name', async () => {
     const { app } = makeApp();
     expect(await (await at(app, 'attacker.example')).text()).toContain('add it to PINION_ALLOWED_HOSTS');

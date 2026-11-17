@@ -72,11 +72,15 @@ describe('resolveDbFile', () => {
     expect(notes(join(d, 'openchat.db'))).toEqual(['my chats']);
   });
 
-  it('uses PINION_DB first, then the old OPENCHAT_DB, and moves nothing', () => {
+  it('uses PINION_DB when set, and moves nothing', () => {
     const d = dir();
     oldDb(join(d, 'openchat.db'));
-    expect(resolveDbFile({ PINION_DB: 'a.db', OPENCHAT_DB: 'b.db' }, d)).toBe('a.db');
-    expect(resolveDbFile({ OPENCHAT_DB: 'b.db' }, d)).toBe('b.db');
+    expect(resolveDbFile({ PINION_DB: 'a.db' }, d)).toBe('a.db');
     expect(existsSync(join(d, 'openchat.db'))).toBe(true);
+  });
+
+  it('uses the default when PINION_DB is blank, never an empty path', () => {
+    const d = dir();
+    expect(resolveDbFile({ PINION_DB: '' }, d)).toBe(join(d, 'pinion.db'));
   });
 });

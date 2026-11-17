@@ -21,6 +21,6 @@ export default defineConfig({
   },
   server: {
     port: 5173,
-    proxy: { '/api': `http://127.0.0.1:${process.env.PINION_PORT ?? process.env.OPENCHAT_PORT ?? 3000}` },
+    proxy: { '/api': `http://127.0.0.1:${process.env.PINION_PORT || 3000}` },
   },
 });
